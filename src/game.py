@@ -101,21 +101,22 @@ class Game:
         enemy = self.objects[self.enemy_id]
         tank = self.objects[self.tank_id]
 
-        if self.shootLoop == 1:
-            message["shoot"] = shootingAlgorithm.enemyPredictAngle(enemy, tank["position"])
-            self.shootLoop +=1
-        elif self.shootLoop == 3:
-            message["shoot"] = shootingAlgorithm.enemyCurrentAngle(enemy, tank["position"])
-            self.shootLoop = 0
-        else:
-            self.shootLoop +=1
+        if shootingAlgorithm.checkEnemyLOS(enemy, tank["position"], self.objects):
+            if self.shootLoop == 1:
+                message["shoot"] = shootingAlgorithm.enemyPredictAngle(enemy, tank["position"])
+            elif self.shootLoop == 3:
+                message["shoot"] = shootingAlgorithm.enemyCurrentAngle(enemy, tank["position"])
+            else:
+                self.shootLoop +=1
+            if self.shootLoop >= 4:
+                self.shootLoop = 0
 
         #incomingBullet = futureSight.findClosestBullet(self.objects, self.objects[self.tank_id]["position"])
         incomingBullet = futureSight.findIncomingBullet(self.objects, tank["position"])
         if incomingBullet:
             message["move"] = futureSight.avoidBulletAngle(*incomingBullet["velocity"])
         else:
-            message["move"] = -1
+            message["path"] = enemy["position"]
 
         comms.post_message(message)
 

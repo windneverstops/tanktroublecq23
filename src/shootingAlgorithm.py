@@ -1,6 +1,6 @@
 import math
-import numpy as np
 from operator import add
+from intersect import doIntersect, Point
 """
 1. Consider defensive shooting
 2. Predictive shooting
@@ -35,3 +35,21 @@ def enemyPredictAngle(enemy, pos):
     if prediction[0] < pos[0]:
         res += 180
     return res
+
+def checkEnemyLOS(enemy, pos, objDict):
+    p2 = Point(*pos)
+    q2 = Point(*enemy["position"])
+    for objId in objDict:
+        if (objDict[objId]["type"] == 3 or objDict[objId]["type"] == 4):
+            wallPos = objDict[objId]["position"]
+            r1 = Point(wallPos[0]-9, wallPos[1]+9)
+            r2 = Point(wallPos[0]+9, wallPos[1]+9)
+            r3 = Point(wallPos[0]-9, wallPos[1]-9)
+            r4 = Point(wallPos[0]+9, wallPos[1]-9)
+            for side in [[r1, r2], [r2, r3], [r3, r4], [r4, r1]]:
+                p1 = side[0]
+                q1 = side[1]
+                
+                if doIntersect(p1, q1, p2, q2):
+                    return False
+    return True
