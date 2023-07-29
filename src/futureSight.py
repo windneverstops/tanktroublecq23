@@ -104,7 +104,7 @@ def doIntersect(p1,q1,p2,q2):
 
 def findIncomingBullet(objDict, pos):
     for objId in objDict:
-        if objDict[objId]["type"] == 2:
+        if objDict[objId]["type"] == 2 and checkLOS(objDict[objId]["position"], pos, objDict):
             bullet = objDict[objId]
             # m = bullet["velocity"][1] / bullet["velocity"][0]
             # c = bullet["position"][1] - m*bullet["position"][0]

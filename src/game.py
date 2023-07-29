@@ -105,16 +105,16 @@ class Game:
 
         comms.post_message(message)
 
-def get_bullets(message: dict) -> dict:
-    """filters message for bullets.
-    Message should be the communication from the server, i.e. self.current_turn_message"""
-    res = dict()
-    for obj_key, obj_data in message["message"]["updated_objects"].items():
-        # Check if the "type" property of the current object is equal to 2
+# def get_bullets(message: dict) -> dict:
+#     """filters message for bullets.
+#     Message should be the communication from the server, i.e. self.current_turn_message"""
+#     res = dict()
+#     for obj_key, obj_data in message["message"]["updated_objects"].items():
+#         # Check if the "type" property of the current object is equal to 2
         
-        if obj_data.get("type") == 2:
-            res[obj_key] = obj_data       
-    return res
+#         if obj_data.get("type") == 2:
+#             res[obj_key] = obj_data       
+#     return res
                 
 
 
