@@ -1,5 +1,6 @@
 import json
 import typing
+import sys
 
 
 END_SIGNAL = "END"
@@ -11,7 +12,7 @@ def post_message(message: typing.Dict):
     Converts the given message to a JSON and prints it for the game server.
     :param message: Message to be printed - it should be a dict and should convert to JSON without error.
     """
-    print(json.dumps(message))
+    print(json.dumps(message), file=sys.stderr)
 
 
 def read_message() -> typing.Union[str, typing.Dict[str, dict]]:
