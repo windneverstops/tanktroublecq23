@@ -12,7 +12,7 @@ def avoidBulletAngle(x,y):
 
 def findClosestBullet(objDict, pos):
     closest = None
-    dist = 9999999
+    dist = 50
     for objId in objDict:
         obj = objDict[objId]
         if obj["type"] == 2 and math.dist(obj["position"], pos) < dist:
