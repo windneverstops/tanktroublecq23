@@ -13,7 +13,7 @@ def post_message(message: typing.Dict):
     :param message: Message to be printed - it should be a dict and should convert to JSON without error.
     """
     print(json.dumps(message))
-    #print to log
+    # Print to logs
     print(json.dumps(message), file=sys.stderr)
 
 

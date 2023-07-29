@@ -96,9 +96,10 @@ class Game:
         
         message = {}
 
-        nearestBullet = futureSight.findClosestBullet(self.objects, self.objects[self.tank_id]["position"])
-        if nearestBullet:
-            message["move"] = futureSight.avoidBulletAngle(nearestBullet["velocity"][0], nearestBullet["velocity"][1])
+        #incomingBullet = futureSight.findClosestBullet(self.objects, self.objects[self.tank_id]["position"])
+        incomingBullet = futureSight.findIncomingBullet(self.objects, self.objects[self.tank_id]["position"])
+        if incomingBullet:
+            message["move"] = futureSight.avoidBulletAngle(*incomingBullet["velocity"])
         else:
             message["move"] = -1
 
