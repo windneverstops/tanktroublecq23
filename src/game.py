@@ -90,8 +90,8 @@ class Game:
         """
 
         # Write your code here... For demonstration, this bot just shoots randomly every turn.
-
-        nearestBullet = futureSight.findClosestBullet()
+        
+        nearestBullet = futureSight.findClosestBullet(self.objects, self.objects[self.tank_id]["position"])
 
         comms.post_message({
             "move": futureSight.avoidBulletAngle(*nearestBullet.velocity)
