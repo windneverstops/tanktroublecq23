@@ -1,4 +1,5 @@
 import math
+import random
 from operator import add
 
 # predict bullet pathing
@@ -8,8 +9,11 @@ def avoidBulletAngle(x,y):
     Input: Speed on X axis; Speed on Y axis
     Output: Angle perpendicular to bullet angle
     """
-    bulletAngle = math.degrees(math.atan(y/x))
-    return bulletAngle+90
+    if not x:
+        bulletAngle = 90 if y > 0 else 270
+    else:
+        bulletAngle = math.degrees(math.atan(y/x))
+    return bulletAngle+(90*random.choice([-1, 1]))
 
 # def findClosestBullet(objDict, pos):
 #     closest = None
