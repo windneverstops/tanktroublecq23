@@ -3,14 +3,29 @@ import math
 # predict bullet pathing
 
 def avoidBulletAngle(x,y):
-    '''
+    """
     Input: Speed on X axis; Speed on Y axis
     Output: Angle perpendicular to bullet angle
-    '''
+    """
     bulletAngle = math.degrees(math.atan(y/x))
     return bulletAngle+90
 
 def findClosestBullet(objDict, pos):
+    closest = None
+    dist = 9999999
     for objId in objDict:
-        if objDict[objId]["type"] == 2 and pos[0]-50 <= objDict[objId]["position"][0] <= pos[0]+50 and pos[1]-50 <= objDict[objId]["position"][1] <= pos[1]+50:
-            return objDict[objId]
+        obj = objDict[objId]
+        d = math.dist(obj["position"], pos)
+        if obj["type"] == 2 and d < dist:
+            closest = obj
+            dist = d
+    return closest
+    
+        
+def findIncomingBullets(objDict, pos):
+    for objId in objDict:
+        if objDict[objId]["type"] == 2:
+            bullet = objDict[objId]
+            m = bullet["velocity"][0] / bullet["velocity"][1]
+            c = bullet["position"][1] - m*bullet["position"][0]
+
