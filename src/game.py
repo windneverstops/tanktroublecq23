@@ -2,6 +2,7 @@ import random
 
 import comms
 from object_types import ObjectTypes
+import futureSight
 
 
 class Game:
@@ -90,8 +91,10 @@ class Game:
 
         # Write your code here... For demonstration, this bot just shoots randomly every turn.
 
+        nearestBullet = futureSight.findClosestBullet()
+
         comms.post_message({
-            "shoot": random.uniform(0, random.randint(1, 360))
+            "move": futureSight.avoidBulletAngle(*nearestBullet.velocity)
         })
 
 
