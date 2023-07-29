@@ -3,6 +3,7 @@ import random
 import comms
 from object_types import ObjectTypes
 import futureSight
+import shootingAlgorithm
 
 import sys
 
@@ -22,6 +23,8 @@ class Game:
     def __init__(self):
         tank_id_message: dict = comms.read_message()
         self.tank_id = tank_id_message["message"]["your-tank-id"]
+        self.enemy_id = tank_id_message["message"]["your-tank-id"]
+        self.shootLoop = 0
 
         self.current_turn_message = None
 
@@ -95,6 +98,12 @@ class Game:
         # Write your code here... For demonstration, this bot just shoots randomly every turn.
         
         message = {}
+
+        if self.shootLoop == 1:
+            shootingAlgorithm.enemyPredictAngle()
+        elif self.shootLoop == 3:
+            shootingAlgorithm.enemyCurrentAngle()
+            self.shootLoop = 0
 
         #incomingBullet = futureSight.findClosestBullet(self.objects, self.objects[self.tank_id]["position"])
         incomingBullet = futureSight.findIncomingBullet(self.objects, self.objects[self.tank_id]["position"])
