@@ -15,10 +15,9 @@ def findClosestBullet(objDict, pos):
     dist = 9999999
     for objId in objDict:
         obj = objDict[objId]
-        d = math.dist(obj["position"], pos)
-        if obj["type"] == 2 and d < dist:
+        if obj["type"] == 2 and math.dist(obj["position"], pos) < dist:
             closest = obj
-            dist = d
+            dist = math.dist(obj["position"], pos)
     return closest
     
         
