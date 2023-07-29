@@ -13,5 +13,5 @@ def avoidBulletAngle(x,y):
 
 def findClosestBullet(objDict, pos):
     for obj in objDict:
-        if obj.type == "2" and pos[0]-20 <= obj.position[0] <= pos[0]+20 and pos[1]-20 <= obj.position[1] <= pos[1]+20:
+        if obj.type == 2 and pos[0]-20 <= obj.position[0] <= pos[0]+20 and pos[1]-20 <= obj.position[1] <= pos[1]+20:
             return obj
