@@ -23,7 +23,7 @@ class Game:
     def __init__(self):
         tank_id_message: dict = comms.read_message()
         self.tank_id = tank_id_message["message"]["your-tank-id"]
-        self.enemy_id = tank_id_message["message"]["your-tank-id"]
+        self.enemy_id = tank_id_message["message"]["enemy-tank-id"]
         self.shootLoop = 0
 
         self.current_turn_message = None
@@ -98,15 +98,20 @@ class Game:
         # Write your code here... For demonstration, this bot just shoots randomly every turn.
         
         message = {}
+        enemy = self.objects[self.enemy_id]
+        tank = self.objects[self.tank_id]
 
         if self.shootLoop == 1:
-            shootingAlgorithm.enemyPredictAngle()
+            message["shoot"] = shootingAlgorithm.enemyPredictAngle(enemy, tank["position"])
+            self.shootLoop +=1
         elif self.shootLoop == 3:
-            shootingAlgorithm.enemyCurrentAngle()
+            message["shoot"] = shootingAlgorithm.enemyCurrentAngle(enemy, tank["position"])
             self.shootLoop = 0
+        else:
+            self.shootLoop +=1
 
         #incomingBullet = futureSight.findClosestBullet(self.objects, self.objects[self.tank_id]["position"])
-        incomingBullet = futureSight.findIncomingBullet(self.objects, self.objects[self.tank_id]["position"])
+        incomingBullet = futureSight.findIncomingBullet(self.objects, tank["position"])
         if incomingBullet:
             message["move"] = futureSight.avoidBulletAngle(*incomingBullet["velocity"])
         else:
