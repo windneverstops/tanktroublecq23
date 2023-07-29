@@ -98,7 +98,6 @@ class Game:
 
         nearestBullet = futureSight.findClosestBullet(self.objects, self.objects[self.tank_id]["position"])
         if nearestBullet:
-            print(nearestBullet)
             message["move"] = futureSight.avoidBulletAngle(nearestBullet["velocity"][0], nearestBullet["velocity"][1])
         else:
             message["move"] = -1
