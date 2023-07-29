@@ -101,7 +101,7 @@ class Game:
         enemy = self.objects[self.enemy_id]
         tank = self.objects[self.tank_id]
 
-        if shootingAlgorithm.checkEnemyLOS(enemy, tank["position"], self.objects):
+        if shootingAlgorithm.checkLOS(enemy["position"], tank["position"], self.objects):
             if self.shootLoop == 1:
                 message["shoot"] = shootingAlgorithm.enemyPredictAngle(enemy, tank["position"])
             elif self.shootLoop == 3:

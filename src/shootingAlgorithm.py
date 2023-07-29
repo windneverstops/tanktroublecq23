@@ -36,9 +36,9 @@ def enemyPredictAngle(enemy, pos):
         res += 180
     return res
 
-def checkEnemyLOS(enemy, pos, objDict):
-    p2 = Point(*pos)
-    q2 = Point(*enemy["position"])
+def checkLOS(pos1, pos2, objDict):
+    p2 = Point(*pos1)
+    q2 = Point(*pos2)
     for objId in objDict:
         if (objDict[objId]["type"] == 3 or objDict[objId]["type"] == 4):
             wallPos = objDict[objId]["position"]
