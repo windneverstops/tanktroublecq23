@@ -12,6 +12,8 @@ def post_message(message: typing.Dict):
     Converts the given message to a JSON and prints it for the game server.
     :param message: Message to be printed - it should be a dict and should convert to JSON without error.
     """
+    print(json.dumps(message))
+    #print to log
     print(json.dumps(message), file=sys.stderr)
 
 
