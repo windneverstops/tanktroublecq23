@@ -53,3 +53,9 @@ def checkLOS(pos1, pos2, objDict):
                 if doIntersect(p1, q1, p2, q2):
                     return False
     return True
+
+def shootWalls(pos, objDict):
+    for objId in objDict:
+        obj = objDict[objId]
+        if obj["type"] == 4 and checkLOS(obj["position"], pos, objDict):
+            return enemyCurrentAngle(obj, pos)

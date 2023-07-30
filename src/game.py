@@ -4,6 +4,7 @@ import comms
 from object_types import ObjectTypes
 import futureSight
 import shootingAlgorithm
+import pathfinder
 
 import sys
 
@@ -62,6 +63,7 @@ class Game:
 
         self.width = biggest_x
         self.height = biggest_y
+        self.center = [self.width/2, self.height/2]
 
     def read_next_turn_data(self):
         """
@@ -100,6 +102,7 @@ class Game:
         message = {}
         enemy = self.objects[self.enemy_id]
         tank = self.objects[self.tank_id]
+        shootableWall = shootingAlgorithm.shootWalls(tank["position"], self.objects)
 
         if shootingAlgorithm.checkLOS(enemy["position"], tank["position"], self.objects):
             if self.shootLoop == 1:
@@ -110,13 +113,16 @@ class Game:
                 self.shootLoop +=1
             if self.shootLoop >= 4:
                 self.shootLoop = 0
+        elif shootableWall:
+            message["shoot"] = shootableWall
 
         #incomingBullet = futureSight.findClosestBullet(self.objects, self.objects[self.tank_id]["position"])
         incomingBullet = futureSight.findIncomingBullet(self.objects, tank["position"])
         if incomingBullet:
             message["move"] = futureSight.avoidBulletAngle(*incomingBullet["velocity"])
         else:
-            message["path"] = enemy["position"]
+            path = pathfinder.pathfind(enemy, tank["position"], self.objects, self.center)
+            message[path[0]] = path[1]
 
         comms.post_message(message)
 
