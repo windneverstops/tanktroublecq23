@@ -1,12 +1,11 @@
 import math
 import random
 from operator import add
-from intersect import doIntersect, Point
 from shootingAlgorithm import checkLOS
 
 # predict bullet pathing
 
-def avoidBulletAngle(x,y):
+def avoidBulletAngle(x,y,pos,objDict):
     """
     Input: Speed on X axis; Speed on Y axis
     Output: Angle perpendicular to bullet angle
@@ -15,6 +14,14 @@ def avoidBulletAngle(x,y):
         bulletAngle = 90 if y > 0 else 270
     else:
         bulletAngle = math.degrees(math.atan(y/x))
+    # angle = 90*random.choice([-1, 1])
+    # for objId in objDict:
+    #     obj = objDict[objId]
+        
+    #     if obj["type"] == 6 and (obj["position"][0][0] >= pos[0]-100 or obj["position"][1][1] >= pos[1]-100 or obj["position"][2][0] <= pos[0]+100 or obj["position"][3][1] <= pos[1]+100):
+    # predictVel = [math.cos(angle)*450, math.sin(angle)*450]
+    # prediction = list(map(add, pos, predictVel))
+    
     return bulletAngle+(90*random.choice([-1, 1]))
 
 # def findClosestBullet(objDict, pos):

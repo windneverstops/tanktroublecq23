@@ -7,7 +7,7 @@ import shootingAlgorithm
 import pathfinder
 
 import sys
-
+import math
 
 
 class Game:
@@ -105,21 +105,21 @@ class Game:
         shootableWall = shootingAlgorithm.shootWalls(tank["position"], self.objects)
 
         if shootingAlgorithm.checkLOS(enemy["position"], tank["position"], self.objects):
-            if self.shootLoop == 1:
+            if self.shootLoop == 0 or self.shootLoop == 1:
                 message["shoot"] = shootingAlgorithm.enemyPredictAngle(enemy, tank["position"])
-            elif self.shootLoop == 3:
+            elif self.shootLoop == 2 or self.shootLoop == 3:
                 message["shoot"] = shootingAlgorithm.enemyCurrentAngle(enemy, tank["position"])
             else:
                 self.shootLoop +=1
             if self.shootLoop >= 4:
                 self.shootLoop = 0
-        elif shootableWall:
+        elif shootableWall and math.dist(enemy["position"],tank["position"]) >= 300:
             message["shoot"] = shootableWall
 
         #incomingBullet = futureSight.findClosestBullet(self.objects, self.objects[self.tank_id]["position"])
         incomingBullet = futureSight.findIncomingBullet(self.objects, tank["position"])
         if incomingBullet:
-            message["move"] = futureSight.avoidBulletAngle(*incomingBullet["velocity"])
+            message["move"] = futureSight.avoidBulletAngle(incomingBullet["velocity"][0],incomingBullet["velocity"][0][1],tank["position"], self.objects)
         else:
             path = pathfinder.pathfind(enemy, tank["position"], self.objects, self.center)
             message[path[0]] = path[1]
