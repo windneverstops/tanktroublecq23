@@ -40,7 +40,7 @@ def checkLOS(pos1, pos2, objDict):
     p2 = Point(*pos1)
     q2 = Point(*pos2)
     for objId in objDict:
-        if (objDict[objId]["type"] == 3 or objDict[objId]["type"] == 4):
+        if (objDict[objId]["type"] == 3 or objDict[objId]["type"] == 4) and (objDict[objId]["position"] != pos1 and objDict[objId]["position"] != pos2):
             wallPos = objDict[objId]["position"]
             r1 = Point(wallPos[0]-9, wallPos[1]+9)
             r2 = Point(wallPos[0]+9, wallPos[1]+9)

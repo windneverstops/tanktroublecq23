@@ -33,10 +33,10 @@ def findIncomingBullet(objDict, pos):
             bullet = objDict[objId]
             # m = bullet["velocity"][1] / bullet["velocity"][0]
             # c = bullet["position"][1] - m*bullet["position"][0]
-            r1 = Point(pos[0]-10, pos[1]+10)
-            r2 = Point(pos[0]+10, pos[1]+10)
-            r3 = Point(pos[0]-10, pos[1]-10)
-            r4 = Point(pos[0]+10, pos[1]-10)
+            r1 = Point(pos[0]-15, pos[1]+15)
+            r2 = Point(pos[0]+15, pos[1]+15)
+            r3 = Point(pos[0]-15, pos[1]-15)
+            r4 = Point(pos[0]+15, pos[1]-15)
             p2 = Point(*bullet["position"])
             # qx = pos[0]+(100*math.copysign(pos[0]-bullet["position"][0]))
             # qy = m*qx + c
