@@ -2,6 +2,7 @@ import math
 import random
 from operator import add
 from shootingAlgorithm import checkLOS
+from intersect import doIntersect, Point
 
 # predict bullet pathing
 
